@@ -42,6 +42,7 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
     mapping(uint256=> stake)public staking;
 
     struct stake{
+        uint256 stakingId;
         address staker; 
         address token;
         uint256 amount;
@@ -49,7 +50,7 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
         uint256 endTime;
     } 
     uint256 public Addedtokens;
-    uint256 fee =200;
+    uint256 fee = 200;
     uint256 Reward = 300;
     uint256 public stakingId;
     address public bank;
@@ -88,30 +89,29 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
 
     
     function addCustomToken(address _token) public onlyOwner {
-        uint256 supply = IERC20(_token).totalSupply();
-        IERC20(_token).approve(address(this),supply);
         Addedtokens++;
         tokens[Addedtokens]=_token;
     }
 
 
     function swapeToken(uint256 _tokenNb, address _swapeWith, uint256 _amount) public {
-        IERC20 token = IERC20(tokens[_tokenNb]);
+        tokenCreation token = tokenCreation(tokens[_tokenNb]);
        
-        if(IERC20(_swapeWith).balanceOf(msg.sender)>=_amount){
+        if(IERC20(_swapeWith).balanceOf(msg.sender)<_amount){
             revert youDontHaveBalance();
         }
-
         uint256 tex = getTex(_amount);
-        uint256 remain = (tex - _amount);
-        IERC20(_swapeWith).transfer(bank,remain);
-        IERC20(_swapeWith).transfer(texCallector,tex);
-        token.transferFrom(owner(),msg.sender,_amount);
+        uint256 remain = (_amount - tex);
+        IERC20(_swapeWith).transferFrom(msg.sender,address(this),remain);
+        IERC20(_swapeWith).transferFrom(msg.sender,texCallector,tex);
+        address owner = token.owner();
+        token.transferFrom(owner,msg.sender,_amount);
     }
 
     function BuyToken(uint256 _tokenNb, uint256 _amount ) public payable {
-        IERC20 token = IERC20(tokens[_tokenNb]);
-        token.transferFrom(owner(),msg.sender,_amount);
+        tokenCreation token = tokenCreation(tokens[_tokenNb]);
+        address owner = token.owner();
+        token.transferFrom(owner,msg.sender,_amount);
     }
 
     function withDraw() public onlyOwner{
@@ -121,16 +121,16 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
         } 
     }
 
-    function Staking(address _token , uint256 _amount, uint256 _endTime) public {
-     if(IERC20(_token).balanceOf(msg.sender)>=_amount){
+    function Staking(uint256 _tokenNb , uint256 _amount, uint256 _endTime) public {
+      tokenCreation token = tokenCreation(tokens[_tokenNb]);
+     if(token.balanceOf(msg.sender)<_amount){
             revert youDontHaveBalance();
      }
-
-    IERC20(_token).transfer(address(this),_amount);
+    token.transferFrom(msg.sender,address(this),_amount);
     stakingId++;
+    address Tkn = tokens[_tokenNb];
     uint256 time =(block.timestamp+_endTime);
-    staking[stakingId]=stake(msg.sender,_token,_amount,block.timestamp,time);
-
+    staking[stakingId]=stake(stakingId,msg.sender,Tkn,_amount,block.timestamp,time);
     }
 
     function WithdrawStakingTokens(uint256 _stakingId) public {
@@ -145,8 +145,8 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
         
         uint256 reward = stakingReward(Stake.amount);
 
-        IERC20(Stake.token).transfer(msg.sender,(reward+Stake.amount));
-        
+        IERC20(Stake.token).transfer(msg.sender,Stake.amount);
+        myToken.transfer(msg.sender,reward);
         delete staking[stakingId];
     }
 
@@ -154,8 +154,6 @@ event TokenCreated(address indexed tokenAddress, address indexed creator);
 
     function createToken(string memory name, string memory symbol, uint256 initialSupply, address owner) public returns (address) {
         tokenCreation token = new tokenCreation(name, symbol,owner,initialSupply);        
-        uint256 supply = IERC20(token).totalSupply();
-        IERC20(token).approve(address(this),supply);
         Addedtokens++;
         tokens[Addedtokens]=address(token);
         emit TokenCreated(address(token), owner);

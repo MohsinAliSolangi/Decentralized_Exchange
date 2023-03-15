@@ -123,20 +123,19 @@ const loadContracts = async (signer) => {
           <CreateToken dex={dex} account={account} />
                 </div>
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <AddToken dex={dex} account={account}
-         />
+          <AddToken dex={dex} account={account}/>
          </div>
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <BuyToken dex={dex} account={account} />
+          <BuyToken dex={dex} account={account}/>
         </div>
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <Staking/>
+          <Staking dex={dex} account={account}/>
         </div>
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <Withdraw/>        
+          <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />        
         </div>
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <SwapeToken/>
+          <SwapeToken dex={dex} account={account}/>
         </div>
 
 

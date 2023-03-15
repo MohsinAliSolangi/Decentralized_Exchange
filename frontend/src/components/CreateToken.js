@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Row } from 'react-bootstrap'
 import tokenCreation from "../contractsData/tokenCreation.json"
+import { ethers} from "ethers";
 
 export const CreateToken = ({dex,account}) => {
     const [name, setname] = useState("");
@@ -14,16 +15,14 @@ export const CreateToken = ({dex,account}) => {
     let Symbol = symbol.toString();
     let Supply = supply.toString();
     let Owner = owner.toString();
-    await (await dex.createToken(Name,Symbol,Supply,Owner));
-  
-    
+    await (await dex.createToken(Name,Symbol,Supply,Owner)).wait();
     let tokenadd = await dex.Addedtokens();
-
     let addr = await dex.tokens(tokenadd);
     console.log(tokenadd,addr)
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const Tokens = new ethers.Contract(addr,tokenCreation.abi, signer)
+    console.log("token",Tokens)
     let supplly = await Tokens.totalSupply()
     await Tokens.approve(dex.address,supplly)
     setname("")

@@ -1,8 +1,26 @@
 import React, { useState } from 'react'
+import { ethers } from "ethers";
 import { Form, Row } from 'react-bootstrap'
+import tokenCreation from "../contractsData/tokenCreation.json"
 
-export const SwapeToken = () => {
+export const SwapeToken = ({dex, account}) => {
     const[token, settoken]=useState(null);
+    const[addr, setaddr]=useState(null);
+    const[amount, setAmount]=useState(null);
+
+    const swapeTokens= async()=>{
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const Tokens = new ethers.Contract(addr,tokenCreation.abi,signer)
+      await Tokens.approve(dex.address,amount);
+      await dex.swapeToken(token,addr,amount);
+      settoken("")
+      setaddr("")
+      setAmount("")
+      alert("congrates you swape the Tokins")
+      window.location.reload();
+    }
+
     
     return(
         <div className="display-board">
@@ -17,8 +35,17 @@ export const SwapeToken = () => {
                     required
                     step="any"
                     className='form-control'
-                    placeholder='Enter token amount'
+                    placeholder='Enter token number'
                     onChange={(e) => settoken(e.target.value)}></input>
+                </div>
+                <div style={{marginTop:"10px"}}>
+                  <input
+                    type="address"
+                    required
+                    step="any"
+                    className='form-control'
+                    placeholder='Enter token address'
+                    onChange={(e) => setaddr(e.target.value)}></input>
                 </div>
                 <div style={{marginTop:"10px"}}>
                   <input
@@ -27,16 +54,16 @@ export const SwapeToken = () => {
                     step="any"
                     className='form-control'
                     placeholder='Enter token amount'
-                    onChange={(e) => settoken(e.target.value)}></input>
+                    onChange={(e) => setAmount(e.target.value)}></input>
                 </div>
                 </div>
+                
               </Row>
             </Form>
           </div>
             <div className="btn" style={{marginTop:"20px"}} >
-                <button type="button" onClick={(e) => getState()} className="btn btn-primary sButton" > SwapeToken</button>
-                {/* <button type="button"  className="btn btn-primary sButton" >Add Funds</button> */}
-            </div>
+                <button type="button" onClick={swapeTokens} className="btn btn-primary sButton" > SwapeToken</button>
+             </div>
         </div>
     )
 }

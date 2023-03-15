@@ -5,22 +5,24 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
-
   
-  // Get the ContractFactories and Signers here.
+ // Get the ContractFactories and Signers here.
   const mohsinsDex = await ethers.getContractFactory("mohsinsDex");
   // deploy contracts
   const Dex = await mohsinsDex.deploy();
-
   console.log(
-    "Dex",Dex.address
+      "Dex",Dex.address
   ); 
   
-  
+  rewardToken = await ethers.getContractFactory("rewardToken");
+  // deploy contracts
+  const reward = await rewardToken.deploy(Dex.address);
+  console.log(
+    "reward",reward.address
+  );
  
-  
-
-
+  await Dex.setMyToken(reward.address);
+  await Dex.setTexCallector(deployer.address);
   //   ////contract verify scripts ///////////////////
   // await nft.deployTransaction.wait(5);
 

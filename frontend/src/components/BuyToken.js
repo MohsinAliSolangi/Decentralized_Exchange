@@ -8,10 +8,11 @@ export const BuyToken = ({dex,account}) => {
 
  const buyToken = async()=>{
   console.log(token,amount)
-  await dex.BuyToken("1","10000",{value:"10000"});
+  await dex.BuyToken(token,amount,{value:amount});
   settoken("")
   setamount("")
   alert("congrates you Buy Tokens")
+  window.location.reload();
  }
     return(
         <div className="display-board">
