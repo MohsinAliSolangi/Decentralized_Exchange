@@ -18,11 +18,11 @@ export const CreateToken = ({dex,account}) => {
     await (await dex.createToken(Name,Symbol,Supply,Owner)).wait();
     let tokenadd = await dex.Addedtokens();
     let addr = await dex.tokens(tokenadd);
-    console.log(tokenadd,addr)
+   
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const Tokens = new ethers.Contract(addr,tokenCreation.abi, signer)
-    console.log("token",Tokens)
+  
     let supplly = await Tokens.totalSupply()
     await Tokens.approve(dex.address,supplly)
     setname("")
@@ -36,7 +36,7 @@ export const CreateToken = ({dex,account}) => {
 
    
    
-console.log(name,symbol,supply,owner);
+
     return(
         <div className="display-board">
           

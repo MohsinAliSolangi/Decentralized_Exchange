@@ -12,9 +12,9 @@ export const Staking = ({ dex, account }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const dextoken = await dex.tokens(Token)
-    console.log("dextoken",dextoken)
+  
     const Tokens = new ethers.Contract(dextoken, tokenCreation.abi, signer)
-    console.log(Tokens,dex.address)
+  
     await (await Tokens.approve(dex.address,amount)).wait();
     await dex.Staking(Token, amount, endTime);
     settoken("")

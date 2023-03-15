@@ -7,7 +7,6 @@ export const BuyToken = ({dex,account}) => {
 
 
  const buyToken = async()=>{
-  console.log(token,amount)
   await dex.BuyToken(token,amount,{value:amount});
   settoken("")
   setamount("")

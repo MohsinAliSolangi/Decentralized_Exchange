@@ -11,23 +11,23 @@ export const Withdraw = ({ dex , account}) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
-        console.log("dex",dex)
+     
     let id = await dex?.stakingId()
     let items = []
-    console.log("id",id)
+  
     for(let i=1; i<=id; i++){
         let stake = await dex.staking(i);
-        console.log("+++++++++",stake.staker,account)
+    
     if (stake.staker?.toString().toLowerCase() === account?.toString().toLowerCase()) {
             let stakes = await dex.staking(i);
-            console.log("stakes",stakes)
+          
             items.push(stakes)
           }
         }
      setStakeAmount(items) 
     } 
     
-    console.log("stakeAmount",stakeAmount);
+   
     
     useEffect(()=> {
         WithdrawStakingTokens();

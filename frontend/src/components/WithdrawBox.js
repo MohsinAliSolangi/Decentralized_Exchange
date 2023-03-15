@@ -24,7 +24,7 @@ export const WithdrawBox = ({dex, items,idxx}) => {
       };
       
 
-    console.log("items",items,idxx)
+   
     return(
         <div className="display-board" style={{margin:"0 auto"}}>
             <h6> Staking Tokens </h6>

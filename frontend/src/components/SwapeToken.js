@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { Form, Row } from 'react-bootstrap'
 import tokenCreation from "../contractsData/tokenCreation.json"
 
+
 export const SwapeToken = ({dex, account}) => {
     const[token, settoken]=useState(null);
     const[addr, setaddr]=useState(null);
@@ -21,10 +22,17 @@ export const SwapeToken = ({dex, account}) => {
       window.location.reload();
     }
 
+    function show(val){
+      console.log("TOkenssssssss",val)
+    }
+  
     
     return(
         <div className="display-board">
+
+     
             <h4>Swape Token</h4>
+            
             <div>
             <Form>
               <Row>
@@ -36,7 +44,9 @@ export const SwapeToken = ({dex, account}) => {
                     step="any"
                     className='form-control'
                     placeholder='Enter token number'
+                    
                     onChange={(e) => settoken(e.target.value)}></input>
+               
                 </div>
                 <div style={{marginTop:"10px"}}>
                   <input
