@@ -127,15 +127,15 @@ function App() {
     }
   };
 
-const loadContracts = async () => {
-  // Get deployed copies of contracts
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  // Set signer
-  const signer = provider.getSigner();
-  const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
-  setDex(dex)
-  setLoading(false)
-}
+// const loadContracts = async () => {
+//   // Get deployed copies of contracts
+//   const provider = new ethers.providers.Web3Provider(window.ethereum)
+//   // Set signer
+//   const signer = provider.getSigner();
+//   const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
+//   setDex(dex)
+//   setLoading(false)
+// }
 
 
   useEffect(() => {
