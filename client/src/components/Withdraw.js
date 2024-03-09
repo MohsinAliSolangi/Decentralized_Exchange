@@ -16,9 +16,9 @@ export const Withdraw = ({ dex , account}) => {
     let items = []
   
     for(let i=1; i<=id; i++){
-        let stake = await dex.staking(i);
+        let stake = await dex?.staking(i);
     
-    if (stake.staker?.toString().toLowerCase() === account?.toString().toLowerCase()) {
+    if (stake.staker?.toString()?.toLowerCase() === account?.toString()?.toLowerCase()) {
             let stakes = await dex.staking(i);
           
             items.push(stakes)

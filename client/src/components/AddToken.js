@@ -3,25 +3,11 @@ import { Form, Row } from 'react-bootstrap'
 import tokenCreation from "../contractsData/tokenCreation.json"
 import { ethers} from "ethers";
 
-
-
-
-
-const SetTransactionSigner = () => {
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const signer = provider.getSigner()
-  const marketplace = new ethers.Contract(marketPlaceAddress.address, marketplaceAbi.abi, signer)
-  return marketplace
-}
-
-
-
 export const AddToken = ({dex,account}) => {
     const [token, settoken] = useState(null);
 
 
-  const addCustomToken = async()=>{
+const addCustomToken = async()=>{
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
   const Tokens = new ethers.Contract(token, tokenCreation.abi, signer)

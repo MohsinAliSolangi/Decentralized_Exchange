@@ -32,79 +32,109 @@ function App() {
   const [account, setAccount] = useState(null)
   const [dex, setDex] = useState({})
 
-  
-  ethereum.on("accountsChanged", async (account) => {
-    setAccount(account[0]);
-    window.location.reload()
-  })
 
-  const changeNetwork = async () => {
-    try {
-      setLoading(true)
-      if (!ethereum) throw new Error("No crypto wallet found");
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{
-          chainId: "0x7A69"
-          //  chainId: "0x5"
-        }]
-      });
-      await web3Handler();
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-      console.log(err.message);
+  const connectWallet = async () => {
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    // Check if MetaMask is installed
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        // Check if the wallet is already connected
+        if (!isMobile && !loading) {
+          await ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [
+              {
+                chainId: process.env.REACT_APP_CHAIN_ID, // Replace with your desired chain ID
+              },
+            ],
+          });
+
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+
+          setAccount(accounts[0]);
+          setLoading(true);
+        } else if (isMobile) {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setAccount(accounts[0]);
+          setLoading(true);
+        }
+      } catch (err) {
+        setLoading(false);
+        // toast.error(err.message);
+        console.error(err.message);
+      }
+    } else {
+      if (isMobile) {
+        // Metamask app is not installed, redirect to installation page
+        window.open(
+          "https://metamask.app.link/dapp/https://staking-dapp-project.vercel.app/"
+        );
+        return;
+      } else {
+        // if no window.ethereum and no window.web3, then MetaMask or Trust Wallet is not installed
+        alert(
+          "MetaMask or Trust Wallet is not installed. Please consider installing one of them."
+        );
+        return;
+      }
     }
   };
-  window.ethereum && ethereum.on("chainChanged", async () => {
-    window.location.reload();
-  });
 
-  const checkIsWalletConnected = async () => {  
+  const checkIsWalletConnected = async () => {
     try {
-      if (!ethereum) return alert("please install MetaMask");
-      const accounts = await ethereum.request({ method:"eth_accounts" });
+        
+      window.ethereum.on("accountsChanged", async function (accounts) {
+        setAccount(accounts[0]);
+        setLoading(true);
+      });
+      window.ethereum.on("chainChanged", async (chainId) => {
+        if (chainId != process.env.REACT_APP_CHAIN_ID) {
+          await ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [
+              {
+                // chainId: "0x5" //Goerli
+                // chainId: "0x89", //PolygonMainnet
+                // chainId: "0xaa36a7", //sepolia
+                // chainId: "0x1", //Miannet
+                chainId: process.env.REACT_APP_CHAIN_ID, //localHost TODO
+                // chainId:"0x13881" //mumbai
+                // chainId:"0x61"//bnb
+              },
+            ],
+          });
+        }
+      });
+      const accounts = await ethereum.request({ method: "eth_accounts" });
       if (accounts.length) {
         setAccount(accounts[0]);
-        // Get provider from Metamask
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        // Set signer
-        const signer = provider.getSigner()
-        loadContracts(signer)
+        setLoading(true);
       } else {
         console.log("No account Found");
+        setLoading(false);
       }
     } catch (err) {
-
-      throw new Error("No ethereum Object");
+      console.log(err.message);
+      setLoading(false);
     }
-  }
+  };
 
-  // MetaMask Login/Connect
-  const web3Handler = async () => {
-    const accounts = await window.ethereum.request({ method:'eth_requestAccounts' });
-    setAccount(accounts[0])
-    // Get provider from Metamask
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    // Set signer
-    const signer = provider.getSigner()
-
-    window.ethereum.on('chainChanged', (chainId) => {
-      window.location.reload();
-    })
-
-    window.ethereum.on('accountsChanged', async function (accounts) {
-      setAccount(accounts[0])
-      await web3Handler()
-    })
-    loadContracts(signer)
-}
-
-const loadContracts = async (signer) => {
+const loadContracts = async () => {
   // Get deployed copies of contracts
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  // Set signer
+  const signer = provider.getSigner();
   const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
   setDex(dex)
-    setLoading(false)
+  setLoading(false)
 }
 
 
@@ -117,7 +147,7 @@ const loadContracts = async (signer) => {
 
   return (
     <div className="App">
-      <Header web3Handler={changeNetwork} account={account}/>
+      <Header web3Handler={connectWallet} account={account}/>
        <div className="container mrgnbtm" id="grid">
         <div className="row-md-5" style={{ "paddingTop": 20 }}>
           <CreateToken dex={dex} account={account} />
