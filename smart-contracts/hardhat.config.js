@@ -26,8 +26,6 @@ require('hardhat-contract-sizer');
  */
 // const ALCHEMY_API_KEY = `
 
-// const privateKey = `669a00a5dcee6b12e70ec23b4a793b14bcb38a0f657ce29ada80b578e14743a7`
-
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
