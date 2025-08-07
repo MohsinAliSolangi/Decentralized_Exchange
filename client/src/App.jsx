@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Header } from './components/Header'
+// import { Header } from './components/Header'
 import React, { useEffect, useState } from 'react';
 import { BuyToken } from './components/BuyToken';
 import { AddToken } from './components/AddToken';
@@ -11,6 +11,8 @@ import {SwapeToken} from "./components/SwapeToken"
 import { ethers} from "ethers";
 import dexAddress from "./contractsData/mohsinsDex-address.json"
 import dexAbi from "./contractsData/mohsinsDex.json"
+import Sidebar from './components/Sidebar';
+import Topbar from './components/Topbar';
 
 const style = {
   position: 'absolute',
@@ -28,6 +30,7 @@ const style = {
 
 const { ethereum } = window;
 function App() {
+  const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
   const [dex, setDex] = useState({})
@@ -146,72 +149,87 @@ function App() {
 
 
   return (
-    <div className="App">
-      <Header web3Handler={connectWallet} account={account}/>
-       <div className="container mrgnbtm" id="grid">
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <CreateToken dex={dex} account={account} />
-                </div>
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <AddToken dex={dex} account={account}/>
-         </div>
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <BuyToken dex={dex} account={account}/>
-        </div>
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <Staking dex={dex} account={account}/>
-        </div>
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />        
-        </div>
-        <div className="row-md-5" style={{ "paddingTop": 20 }}>
-          <SwapeToken dex={dex} account={account}/>
-        </div>
+    // <div className="App">
+    //   <Header web3Handler={connectWallet} account={account}/>
+    //    <div className="container mrgnbtm" id="grid">
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <CreateToken dex={dex} account={account} />
+    //             </div>
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <AddToken dex={dex} account={account}/>
+    //      </div>
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <BuyToken dex={dex} account={account}/>
+    //     </div>
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <Staking dex={dex} account={account}/>
+    //     </div>
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />        
+    //     </div>
+    //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
+    //       <SwapeToken dex={dex} account={account}/>
+    //     </div>
 
 
         
-        {/* <div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography sx={{
-                fontWeight: '900'
-              }} id="modal-modal-title" variant="h6" component="h2">
-                Available Endpoints
-              </Typography>
-              <Typography sx={{
-                fontWeight: 'bolder'
-              }} id="modal-modal-description" >
-                {endPs}
-              </Typography>
-            </Box>
-          </Modal>
-        </div> */}
-        {/* <div>
-          <Modal
-            open={openActW}
-            onClose={handleActWClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography sx={{
-                fontWeight: 'bolder'
-              }} id="modal-modal-title" variant="h6" component="h2">
-                Available Endpoints
-              </Typography>
-              <Typography sx={{
-                fontWeight: 'bolder'
-              }} id="modal-modal-description" >
-                {actRes}
-              </Typography>
-            </Box>
-          </Modal>
-        </div> */}
+    //     {/* <div>
+    //       <Modal
+    //         open={open}
+    //         onClose={handleClose}
+    //         aria-labelledby="modal-modal-title"
+    //         aria-describedby="modal-modal-description"
+    //       >
+    //         <Box sx={style}>
+    //           <Typography sx={{
+    //             fontWeight: '900'
+    //           }} id="modal-modal-title" variant="h6" component="h2">
+    //             Available Endpoints
+    //           </Typography>
+    //           <Typography sx={{
+    //             fontWeight: 'bolder'
+    //           }} id="modal-modal-description" >
+    //             {endPs}
+    //           </Typography>
+    //         </Box>
+    //       </Modal>
+    //     </div> */}
+    //     {/* <div>
+    //       <Modal
+    //         open={openActW}
+    //         onClose={handleActWClose}
+    //         aria-labelledby="modal-modal-title"
+    //         aria-describedby="modal-modal-description"
+    //       >
+    //         <Box sx={style}>
+    //           <Typography sx={{
+    //             fontWeight: 'bolder'
+    //           }} id="modal-modal-title" variant="h6" component="h2">
+    //             Available Endpoints
+    //           </Typography>
+    //           <Typography sx={{
+    //             fontWeight: 'bolder'
+    //           }} id="modal-modal-description" >
+    //             {actRes}
+    //           </Typography>
+    //         </Box>
+    //       </Modal>
+    //     </div> */}
+    //   </div>
+    // </div>
+
+      <div className="app d-flex">
+      <Sidebar active={active} setActive={setActive} />
+      <div className=" flex-grow-1">
+        <Topbar web3Handler={connectWallet} account={account} />
+        <div className="container mt-4">
+          {active === "create" && <CreateToken dex={dex} account={account} />}
+          {active === "add" && <AddToken dex={dex} account={account} />}
+          {active === "buy" && <BuyToken dex={dex} account={account} />}
+          {active === "stake" && <Staking dex={dex} account={account} />}
+          {active === "withdraw" && <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />}
+          {active === "swap" && <SwapeToken dex={dex} account={account} />}
+        </div>
       </div>
     </div>
 
@@ -220,3 +238,5 @@ function App() {
 
 
 export default App;
+
+

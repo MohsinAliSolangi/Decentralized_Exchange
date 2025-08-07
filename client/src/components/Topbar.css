@@ -1,0 +1,39 @@
+.topbar {
+    display: flex;
+    margin-left: 320px !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #fff;
+    color: #000;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.topbar-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.wallet-connection {
+    display: flex;
+    align-items: center;
+}
+
+.wallet-button {
+    padding: 15px 20px;
+    background-color: #000;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.wallet-button:hover {
+    opacity: 0.8;
+}
+
