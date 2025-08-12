@@ -1,40 +1,38 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 // import { Header } from './components/Header'
-import React, { useEffect, useState } from 'react';
-import { BuyToken } from './components/BuyToken';
-import { AddToken } from './components/AddToken';
-import { Withdraw } from './components/Withdraw';
-import { Staking } from './components/Staking';
-import {CreateToken} from "./components/CreateToken"
-import {SwapeToken} from "./components/SwapeToken"
-import { ethers} from "ethers";
-import dexAddress from "./contractsData/mohsinsDex-address.json"
-import dexAbi from "./contractsData/mohsinsDex.json"
-import Sidebar from './components/Sidebar';
-import Topbar from './components/Topbar';
+import React, { useEffect, useState } from "react";
+import { BuyToken } from "./components/BuyToken";
+import { AddToken } from "./components/AddToken";
+import {Withdraw} from "./components/Withdraw";
+import { Staking } from "./components/Staking";
+import { CreateToken } from "./components/CreateToken";
+import SwapeToken from "./components/SwapeToken";
+import { ethers } from "ethers";
+import dexAddress from "./contractsData/mohsinsDex-address.json";
+import dexAbi from "./contractsData/mohsinsDex.json";
+import Sidebar from "./components/Sidebar";
+import Topbar from "./components/Topbar";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 700,
-  bgcolor: 'background.paper',
-  border: '5px solid #212121',
-  borderRadius: '15px',
+  bgcolor: "background.paper",
+  border: "5px solid #212121",
+  borderRadius: "15px",
   boxShadow: 24,
   p: 4,
 };
 
-
 const { ethereum } = window;
 function App() {
-  const [active, setActive] = useState(false);
-  const [loading, setLoading] = useState(true)
-  const [account, setAccount] = useState(null)
-  const [dex, setDex] = useState({})
-
+  const [active, setActive] = useState("create");
+  const [loading, setLoading] = useState(true);
+  const [account, setAccount] = useState(null);
+  const [dex, setDex] = useState({});
 
   const connectWallet = async () => {
     const isMobile =
@@ -93,7 +91,6 @@ function App() {
 
   const checkIsWalletConnected = async () => {
     try {
-        
       window.ethereum.on("accountsChanged", async function (accounts) {
         setAccount(accounts[0]);
         setLoading(true);
@@ -130,23 +127,19 @@ function App() {
     }
   };
 
-// const loadContracts = async () => {
-//   // Get deployed copies of contracts
-//   const provider = new ethers.providers.Web3Provider(window.ethereum)
-//   // Set signer
-//   const signer = provider.getSigner();
-//   const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
-//   setDex(dex)
-//   setLoading(false)
-// }
-
+  // const loadContracts = async () => {
+  //   // Get deployed copies of contracts
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum)
+  //   // Set signer
+  //   const signer = provider.getSigner();
+  //   const dex = new ethers.Contract(dexAddress.address, dexAbi.abi, signer)
+  //   setDex(dex)
+  //   setLoading(false)
+  // }
 
   useEffect(() => {
     checkIsWalletConnected();
-  }, [])
-
-
-
+  }, []);
 
   return (
     // <div className="App">
@@ -165,14 +158,12 @@ function App() {
     //       <Staking dex={dex} account={account}/>
     //     </div>
     //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
-    //       <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />        
+    //       <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />
     //     </div>
     //     <div className="row-md-5" style={{ "paddingTop": 20 }}>
     //       <SwapeToken dex={dex} account={account}/>
     //     </div>
 
-
-        
     //     {/* <div>
     //       <Modal
     //         open={open}
@@ -218,25 +209,42 @@ function App() {
     //   </div>
     // </div>
 
-      <div className="app d-flex">
+    //   <div className="app d-flex">
+    //   <Sidebar active={active} setActive={setActive} />
+    //   <div className=" flex-grow-1">
+    //     <Topbar web3Handler={connectWallet} account={account} />
+    //     <div className="container main-box mt-4">
+    //       {active === "create" && <CreateToken dex={dex} account={account} />}
+    //       {active === "add" && <AddToken dex={dex} account={account} />}
+    //       {active === "buy" && <BuyToken dex={dex} account={account} />}
+    //       {active === "stake" && <Staking dex={dex} account={account} />}
+    //       {active === "withdraw" && <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />}
+    //       {active === "swap" && <SwapeToken dex={dex} account={account} />}
+    //     </div>
+    //   </div>
+    // </div>
+
+    <div className="app main-container d-flex">
       <Sidebar active={active} setActive={setActive} />
       <div className=" flex-grow-1">
         <Topbar web3Handler={connectWallet} account={account} />
-        <div className="container mt-4">
+        <div className="container main-box mt-2">
           {active === "create" && <CreateToken dex={dex} account={account} />}
           {active === "add" && <AddToken dex={dex} account={account} />}
           {active === "buy" && <BuyToken dex={dex} account={account} />}
           {active === "stake" && <Staking dex={dex} account={account} />}
-          {active === "withdraw" && <Withdraw checkIsWalletConnected={checkIsWalletConnected} dex={dex} account={account} />}
+          {active === "withdraw" && (
+            <Withdraw
+              checkIsWalletConnected={checkIsWalletConnected}
+              dex={dex}
+              account={account}
+            />
+          )}
           {active === "swap" && <SwapeToken dex={dex} account={account} />}
         </div>
       </div>
     </div>
-
   );
 }
 
-
 export default App;
-
-

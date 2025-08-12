@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  FaPlus,
-  FaList,
-  FaShoppingCart,
-  FaCoins,
-  FaMoneyBill,
-  FaExchangeAlt,
-  FaBars,
-  FaTimes,
+  FaPlus, FaList, FaShoppingCart, FaCoins,
+  FaMoneyBill, FaExchangeAlt, FaBars, FaTimes
 } from "react-icons/fa";
 import logo from "../logo.png";
-import styles from "./Sidebar.module.css"; // Yeh line add karein
+import styles from "./Sidebar.module.css";
 
 const Sidebar = ({ active, setActive }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,6 +31,7 @@ const Sidebar = ({ active, setActive }) => {
 
   return (
     <>
+      {/* Mobile Header */}
       <div className={styles.mobileHeader}>
         <button
           className={styles.hamburgerBtn}
@@ -46,14 +41,10 @@ const Sidebar = ({ active, setActive }) => {
         </button>
       </div>
 
+      {/* Sidebar */}
       <div className={`${styles.sidebar} ${isMobileMenuOpen ? styles.open : ""}`}>
         <div className={styles.logoSection}>
-          <img
-            src={logo}
-            height={70}
-            alt="TokenDash Logo"
-            className={styles.logoImg}
-          />
+          <img src={logo} height={70} alt="TokenDash Logo" className={styles.logoImg} />
         </div>
 
         <ul className={styles.navLinks}>
@@ -63,7 +54,7 @@ const Sidebar = ({ active, setActive }) => {
               className={`${styles.navItem} ${active === item.id ? styles.active : ""}`}
               onClick={() => {
                 setActive(item.id);
-                setIsMobileMenuOpen(false); // mobile mein click karne par close ho jayega
+                setIsMobileMenuOpen(false);
               }}
             >
               {item.icon}

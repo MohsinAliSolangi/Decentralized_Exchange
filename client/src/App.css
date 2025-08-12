@@ -12,11 +12,19 @@
 
 } */
 
+
+html, body {
+  overflow-x: hidden; 
+}
+
+
+
 body{
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
   font-family: 'Lexend Deca', sans-serif;
+  scroll-behavior: smooth;
 }
 
 
@@ -132,4 +140,7 @@ body{
   min-height: 100vh;
   padding: 20px;
 }
+
+
+
 

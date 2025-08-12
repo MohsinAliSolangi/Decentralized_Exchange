@@ -30,7 +30,7 @@ export const WithdrawBox = ({ dex, items, idxx }) => {
       <div>
         {items?.amount?.toString()}
         <br />
-        {items?.token.slice(0, 15)}
+        {items?.token?.slice(0, 15)}
         <br />
         <Countdown date={items?.endTime * 1000} renderer={renderer} />
       </div>

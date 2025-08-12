@@ -1,39 +1,86 @@
 .topbar {
-    display: flex;
-    margin-left: 320px !important;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px;
-    background-color: #fff;
-    color: #000;
-    position: sticky;
-    top: 0;
-    border-bottom: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-left: 20px;
+  background-color: #fff;
+  color: #000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #ddd;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .topbar-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .wallet-connection {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .wallet-button {
-    padding: 15px 20px;
-    background-color: #000;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 15px 20px;
+  background-color: #000;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .wallet-button:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
+/* Responsive Fix */
+@media (max-width: 1024px) {
+  .topbar {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-top: 65px;
+    padding: 20px;
+    flex-direction: row;
+  }
+
+  .topbar-title {
+    font-size: 20px;
+  }
+
+  .wallet-button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+  }
+
+  .topbar-title {
+    font-size: 18px;
+  }
+
+  .wallet-button {
+    width: auto;
+    text-align: center;
+  }
+}

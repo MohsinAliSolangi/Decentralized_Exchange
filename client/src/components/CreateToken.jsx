@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import tokenCreation from "../contractsData/tokenCreation.json";
 import { ethers } from "ethers";
+import Create_token_image from "../assets/images/Create_Token.png";
 
 export const CreateToken = ({ dex, account }) => {
   const [name, setname] = useState("");
@@ -33,57 +34,67 @@ export const CreateToken = ({ dex, account }) => {
   };
 
   return (
-    <div className="create-token-card">
-      <h2>Create Token</h2>
-      <Form>
-        <div className="form-group-container">
-          <div className="form-group">
-            <input
-              type="text"
-              required
-              className="form-control"
-              placeholder="Enter Name"
-              onChange={(e) => setname(e.target.value)}
-            />
+    <div className="create-token-card-outer">
+      <div className="create-token-image-wrapper">
+        <img
+          src={Create_token_image}
+          alt="Create Token Illustration"
+          className="create-token-image"
+        />
+      </div>
+
+
+      <div className="create-token-form-wrapper">
+        <Form>
+          <div className="form-group-container">
+            <div className="form-group">
+              <input
+                type="text"
+                required
+                className="form-control custom-input"
+                placeholder="Enter Name"
+                onChange={(e) => setname(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                required
+                className="form-control custom-input"
+                placeholder="Enter Symbol"
+                onChange={(e) => setsymbol(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="number"
+                required
+                className="form-control custom-input"
+                placeholder="Enter Total Supply"
+                onChange={(e) => setsupply(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                required
+                className="form-control custom-input"
+                placeholder="Enter Owner Address"
+                onChange={(e) => setowner(e.target.value)}
+              />
+            </div>
+            <div className="btn-wrapper">
+              <button
+                type="submit"
+                onClick={CreateToken}
+                className="black-button"
+              >
+                Create Token
+              </button>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              type="text"
-              required
-              className="form-control"
-              placeholder="Enter Symbol"
-              onChange={(e) => setsymbol(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="number"
-              required
-              className="form-control"
-              placeholder="Enter Total Supply"
-              onChange={(e) => setsupply(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              required
-              className="form-control"
-              placeholder="Enter Owner Address"
-              onChange={(e) => setowner(e.target.value)}
-            />
-          </div>
-          <div className="btn-wrapper">
-            <button
-              type="submit"
-              onClick={CreateToken}
-              className="black-button"
-            >
-              Create Token
-            </button>
-          </div>
-        </div>
-      </Form>
+        </Form>
+      </div>
     </div>
   );
 };

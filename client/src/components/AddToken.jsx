@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import tokenCreation from "../contractsData/tokenCreation.json";
 import { ethers } from "ethers";
+import Add__Token from "../assets/images/Add_Token.png";
 
 export const AddToken = ({ dex, account }) => {
   const [token, settoken] = useState(null);
@@ -17,25 +18,35 @@ export const AddToken = ({ dex, account }) => {
 
   return (
     <div className="add-token-card">
-      <h4 className="add-token-title">Add Custom Token</h4>
-      <div>
+      <div className="add-token-image-wrapper">
+        <img
+          src={Add__Token}
+          alt="Token Illustration"
+          className="add-token-image"
+        />
+      </div>
+
+      <div className="add-token-form-wrapper">
         <Form>
-          <div style={{ margin: "0 auto" }}>
+          <div className="form-group">
             <input
               type="address"
               required
               step="any"
-              className="form-control custom-input"
+              className="form-control"
               placeholder="Enter token Address"
               onChange={(e) => settoken(e.target.value)}
             />
           </div>
+
+          <button
+            type="button"
+            onClick={addCustomToken}
+            className="black-button"
+          >
+            Add Tokens
+          </button>
         </Form>
-      </div>
-      <div className="btn-wrapper" style={{ marginTop: "10px" }}>
-        <button type="button" onClick={addCustomToken} className="black-button">
-          Add Tokens
-        </button>
       </div>
     </div>
   );

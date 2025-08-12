@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { ethers } from "ethers";
+import Staking_image from "../assets/images/Staking.png";
 import tokenCreation from "../contractsData/tokenCreation.json";
 
 export const Staking = ({ dex, account }) => {
@@ -26,47 +27,54 @@ export const Staking = ({ dex, account }) => {
 
   return (
     <div className="staking-token-card">
-      <h4 className="staking-token-title">Staking Tokens</h4>
-      <div>
-        <Form>
-          <div style={{ margin: "0 auto" }}>
-            <div>
-              <input
-                type="number"
-                required
-                step="any"
-                className="form-control custom-input"
-                placeholder="Enter token number"
-                onChange={(e) => settoken(e.target.value)}
-              />
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <input
-                type="number"
-                required
-                step="any"
-                className="form-control custom-input"
-                placeholder="Enter token staking amount"
-                onChange={(e) => setamount(e.target.value)}
-              />
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <input
-                type="number"
-                required
-                step="any"
-                className="form-control custom-input"
-                placeholder="Enter Time for Staking"
-                onChange={(e) => setendTime(e.target.value)}
-              />
-            </div>
-          </div>
-        </Form>
+      {/* Left Side: Image + Label */}
+      <div className="staking-token-image-wrapper">
+        <img
+          src={Staking_image}
+          alt="Staking Illustration"
+          className="staking-token-image"
+        />
+        <span className="staking-token-label">Staking</span>
       </div>
-      <div className="btn-wrapper" style={{ marginTop: "10px" }}>
-        <button type="button" onClick={staking} className="black-button">
-          Staking
-        </button>
+
+      <div className="staking-token-form-wrapper">
+        <Form>
+          <div className="form-group">
+            <input
+              type="number"
+              required
+              step="any"
+              className="form-control custom-input"
+              placeholder="Enter token number"
+              onChange={(e) => settoken(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="number"
+              required
+              step="any"
+              className="form-control custom-input"
+              placeholder="Enter token staking amount"
+              onChange={(e) => setamount(e.target.value)}
+            />
+          </div>
+          
+          <div className="form-group">
+            <input
+              type="number"
+              required
+              step="any"
+              className="form-control custom-input"
+              placeholder="Enter Time for Staking"
+              onChange={(e) => setendTime(e.target.value)}
+            />
+          </div>
+
+          <button type="button" onClick={staking} className="black-button">
+            Staking
+          </button>
+        </Form>
       </div>
     </div>
   );

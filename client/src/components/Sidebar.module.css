@@ -1,134 +1,127 @@
-/* Sidebar.module.css (Updated) */
-
 .sidebar {
-width: 320px; 
-background-color: #000; /* Dark black background */
-color: #fff; /* White text */
-display: flex;
-flex-direction: column;
-padding: 20px 0;
-transition: transform 0.3s ease;
-height: 100vh;
-position: fixed;
-top: 0;
-left: 0;
-z-index: 1000 !important;
-transform: translateX(-100%);
+  width: 320px;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  transition: transform 0.3s ease;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000 !important;
+  transform: translateX(-100%);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar.open {
-transform: translateX(0);
+  transform: translateX(0);
 }
 
 .logoSection {
-text-align: center;
-/* padding: 30px 10px; */
-margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .logoImg {
-width: 80px; /* Slightly larger logo */
-height: auto;
-border-radius: 10px;
-box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  width: 80px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 .navLinks {
-list-style: none;
-padding: 0;
-margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .navItem {
-display: flex;
-align-items: center;
-padding: 15px 25px;
-cursor: pointer;
-font-size: 18px; /* Slightly larger font */
-gap: 15px;
-transition: background-color 0.3s ease, padding-left 0.3s ease; /* Smooth transition */
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  cursor: pointer;
+  font-size: 18px;
+  gap: 15px;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
 }
 
 .navItem:hover {
-background-color: #111;
-padding-left: 30px; /* Indentation on hover */
+  background-color: #111;
+  padding-left: 30px;
 }
 
 .navItem.active {
-background-color: #222;
-border-left: 5px solid #fff; /* Accent color */
+  background-color: #222;
+  border-left: 5px solid #fff;
 }
 
 .navItem span {
-font-weight: 500;
+  font-weight: 500;
 }
 
 .navItem svg {
-font-size: 22px;
-color: #fff; /* Accent color for icons */
+  font-size: 22px;
+  color: #fff;
 }
 
-/* Mobile styles */
+/* Mobile Header */
 .mobileHeader {
-display: flex;
-justify-content: space-between; /* Space out logo and button */
-align-items: center;
-padding: 15px 20px;
-background-color: #000;
-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-position: fixed;
-width: 100%;
-top: 0;
-left: 0;
-z-index: 1001;
-}
-
-.mobileHeader .logoImg {
-width: 80px; /* Smaller logo in mobile header */
-border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #000;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 6000 !important;
 }
 
 .hamburgerBtn {
-background: none;
-border: none;
-color: #fff;
-font-size: 28px; /* Larger hamburger icon */
-cursor: pointer;
-z-index: 1002;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 3000 !important;
 }
 
 @media (min-width: 769px) {
-.sidebar {
-transform: translateX(0);
+  .sidebar {
+    transform: translateX(0);
+  }
+  .mobileHeader {
+    display: none;
+  }
 }
 
-.mobileHeader {
-display: none;
-}
-}
-
-/* Mobile sidebar */
+/* Mobile Sidebar */
 @media (max-width: 768px) {
-.sidebar {
-width: 80%; /* Take up more width on mobile */
-max-width: 400px;
-transform: translateX(-100%); /* Still slide in */
-}
-
-.sidebar.open {
-transform: translateX(0);
-}
-
-.logoSection {
-padding: 20px;
-}
-
-.navItem {
-padding: 15px 20px;
-font-size: 16px;
-}
-
-.navItem:hover {
-padding-left: 25px;
-}
+  .sidebar {
+    width: 80%;
+    max-width: 400px;
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5000 !important;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .logoSection {
+    padding: 20px;
+    margin-top: 30px !important;
+  }
+  .navItem {
+    padding: 15px 20px;
+    font-size: 16px;
+  }
+  .navItem:hover {
+    padding-left: 25px;
+  }
 }
