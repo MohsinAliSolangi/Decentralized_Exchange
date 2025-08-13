@@ -224,17 +224,20 @@ export default function SwapeToken({ dex, account }) {
                       <span className="token-symbol">{fromToken.symbol}</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
                         viewBox="0 0 24 24"
-                        fill="currentColor"
+                        stroke-width="2"
+                        stroke="currentColor"
                         aria-hidden="true"
-                        strokeWidth={3}
-                        className="w-3 h-3 text-blue"
+                        width="16"
+                        height="16"
+                        class="w-4 h-4"
                       >
                         <path
-                          fillRule="evenodd"
-                          d="M6.97 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06L8.25 4.81V16.5a.75.75 0 01-1.5 0V4.81L3.53 8.03a.75.75 0 01-1.06-1.06l4.5-4.5zm9.53 4.28a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V7.5a.75.75 0 01.75-.75z"
-                          clipRule="evenodd"
-                        />
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                        ></path>
                       </svg>
                     </button>
                   </div>
@@ -255,7 +258,22 @@ export default function SwapeToken({ dex, account }) {
                     onClick={swapTokensUI}
                     title="Switch tokens"
                   >
-                    ↕
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                      }}
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M6.97 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06L8.25 4.81V16.5a.75.75 0 01-1.5 0V4.81L3.53 8.03a.75.75 0 01-1.06-1.06l4.5-4.5zm9.53 4.28a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V7.5a.75.75 0 01.75-.75z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </button>
                 </div>
 
@@ -284,13 +302,22 @@ export default function SwapeToken({ dex, account }) {
                         alt={toToken.symbol}
                       />
                       <span className="token-symbol">{toToken.symbol}</span>
-                      <svg className="chev" viewBox="0 0 24 24">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        width="16"
+                        height="16"
+                        class="w-4 h-4"
+                      >
                         <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                           d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                        />
+                        ></path>
                       </svg>
                     </button>
                   </div>
