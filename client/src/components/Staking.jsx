@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { ethers } from "ethers";
 import Staking_image from "../assets/images/Staking.png";
@@ -24,6 +24,11 @@ export const Staking = ({ dex, account }) => {
     alert("congrates your tokens has been staked");
     window.location.reload();
   };
+
+
+  useEffect(() => {
+    document.title = "Staking | Multidex";
+  }, []);
 
   return (
     <div className="staking-token-card">

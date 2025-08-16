@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import tokenCreation from "../contractsData/tokenCreation.json";
 import { ethers } from "ethers";
@@ -15,6 +15,12 @@ export const AddToken = ({ dex, account }) => {
     await Tokens.approve(dex.address, supply);
     await dex.addCustomToken(token);
   };
+
+  useEffect(() => {
+    document.title = "Add Token | Multidex";
+  }, []);
+
+
 
   return (
     <div className="add-token-card">

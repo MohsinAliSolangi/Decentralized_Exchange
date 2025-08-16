@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import tokenCreation from "../contractsData/tokenCreation.json";
 import { ethers } from "ethers";
@@ -31,7 +31,12 @@ export const CreateToken = ({ dex, account }) => {
     setowner("");
     alert("Congrates You Create Token");
     window.location.reload();
+
   };
+
+  useEffect(() => {
+    document.title = "Create Token | Multidex";
+  }, []);
 
   return (
     <div className="create-token-card-outer">
@@ -42,7 +47,6 @@ export const CreateToken = ({ dex, account }) => {
           className="create-token-image"
         />
       </div>
-
 
       <div className="create-token-form-wrapper">
         <Form>

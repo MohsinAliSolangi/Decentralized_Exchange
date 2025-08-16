@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import Buy_Token from "../assets/images/Buy_Token.png";
 
 export const BuyToken = ({ dex, account }) => {
   const [token, settoken] = useState(null);
   const [amount, setamount] = useState(null);
+
+    useEffect(() => {
+    document.title = "Buy Token | Multidex";
+  },[]);
 
   const buyToken = async () => {
     await dex.BuyToken(token, amount, { value: amount });
@@ -13,6 +17,10 @@ export const BuyToken = ({ dex, account }) => {
     alert("congrates you Buy Tokens");
     window.location.reload();
   };
+
+
+
+
   return (
     <div className="buy-token-card">
       <div className="buy-token-image-wrapper">

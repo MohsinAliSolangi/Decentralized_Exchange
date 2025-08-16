@@ -168,6 +168,12 @@ export default function SwapeToken({ dex, account }) {
     }
   };
 
+    useEffect(() => {
+    document.title = "Swap Token | Multidex";
+  }, []);
+
+
+
   return (
     <div className="swap-container">
       <div className="swap-wrapper">

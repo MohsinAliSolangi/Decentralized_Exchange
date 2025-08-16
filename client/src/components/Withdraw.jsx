@@ -9,6 +9,8 @@ const statusClass = {
   FAILED: "status-failed",
 };
 
+
+
 export const Withdraw = ({ dex, account }) => {
   const [stakeAmount, setStakeAmount] = useState([]);
 
@@ -42,6 +44,12 @@ export const Withdraw = ({ dex, account }) => {
   useEffect(() => {
     WithdrawStakingTokens();
   }, [account, dex]);
+
+    useEffect(() => {
+    document.title = "Withdraw Staking Tokens | Multidex";
+  }, []);
+
+
 
   if (!dex || !account) {
     return (

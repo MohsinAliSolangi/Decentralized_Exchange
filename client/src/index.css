@@ -102,6 +102,7 @@ input.custom-input.form-control:focus-visible {
 
 .black-button:hover {
   background-color: #333;
+      opacity: 0.8;
 }
 
 /* =========================================
